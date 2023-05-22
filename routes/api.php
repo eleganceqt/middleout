@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\ArticleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix('/articles')->group(function () {
+
+    Route::get('/', [ArticleController::class, 'index'])->name('articles.index');
+
+    Route::post('/', [ArticleController::class, 'store'])->name('articles.store');
+
+    Route::put('/{id}', [ArticleController::class, 'update'])->name('articles.update');
+
+    Route::delete('/{id}', [ArticleController::class, 'destroy'])->name('articles.destroy');
+
 });
